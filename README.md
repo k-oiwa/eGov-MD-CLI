@@ -49,7 +49,18 @@ python main.py get 建築基準法 --article 20
 
 # 建築士法の第20条第2項を抽出
 python main.py get 建築士法 --article 20
+
+# 国交省告示PDFを取得してMarkdownに変換（平成19年告示第593号）
+python main.py get-kokuji 平成19年 593
+
+# 告示番号の別表記も対応
+python main.py get-kokuji 平成19 第593号
 ```
+
+### 告示コマンドの出力先
+
+- PDFファイル: `output/pdf/告示_<年>_<番号>.pdf`
+- Markdownファイル: `output/告示_<年>_<番号>.md`
 
 ## ディレクトリ構成
 
@@ -60,9 +71,11 @@ eGov-MD-CLI/
 ├── requirements.txt    # 依存パッケージ一覧
 ├── main.py             # エントリーポイント・CLI引数処理
 ├── src/
-│   ├── api_client.py   # e-Gov APIとの通信・XML取得
-│   ├── xml_parser.py   # XML解析・Pythonデータ構造への変換
-│   └── md_converter.py # Markdown文字列の生成
+│   ├── api_client.py    # e-Gov APIとの通信・XML取得
+│   ├── xml_parser.py    # XML解析・Pythonデータ構造への変換
+│   ├── md_converter.py  # Markdown文字列の生成
+│   ├── kokuji_client.py # 告示PDFのURL特定・ダウンロード
+│   └── pdf_parser.py    # PDFからのテキスト抽出・Markdown変換
 ├── tests/              # 単体テスト
 └── output/             # 生成されたMarkdownファイルの保存先（Git管理外）
 ```
